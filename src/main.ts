@@ -9,6 +9,7 @@ import { UniverRenderEnginePlugin } from "@univerjs/engine-render";
 import { UniverSheetsPlugin } from "@univerjs/sheets";
 import { UniverSheetsFormulaPlugin } from "@univerjs/sheets-formula";
 import { UniverSheetsUIPlugin } from "@univerjs/sheets-ui";
+import { FUniver } from "@univerjs/facade";
 import { UniverUIPlugin } from "@univerjs/ui";
 import { UniverSheetsNumfmtPlugin } from "@univerjs/sheets-numfmt";
 
@@ -48,18 +49,18 @@ univer.registerPlugin(UniverSheetsNumfmtPlugin);
 univer.registerPlugin(UniverSheetsFormulaPlugin);
 
 // create univer sheet instance
-univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
-  "id": "gyI0JO",
+const workbook: any = univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
+  "id": "workbook-01",
   "sheetOrder": [
-      "RSfWjJFv4opmE1JaiRj80"
+      "sheet-01"
   ],
   "name": "",
   "appVersion": "0.1.11",
   "locale": "zhCN",
   "styles": {},
   "sheets": {
-      "RSfWjJFv4opmE1JaiRj80": {
-          "id": "RSfWjJFv4opmE1JaiRj80",
+      "sheet-01": {
+          id: 'sheet-01',
           "name": "测试",
           "tabColor": "",
           "hidden": 0,
@@ -77,7 +78,18 @@ univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
           "defaultColumnWidth": 73,
           "defaultRowHeight": 23,
           "mergeData": [],
-          "cellData": {},
+          cellData: {
+            0: {
+              0: {
+                v: 'Hello World',
+                custom: {
+                    a: 1,
+                    b: 2,
+                    c: 3
+                }
+              },
+            },
+          },
           "rowData": {},
           "columnData": {
               "0": {
@@ -144,3 +156,184 @@ univer.createUnit(UniverInstanceType.UNIVER_SHEET, {
   ]
 }
 );
+const getData = () => {
+    if (!workbook) {
+        throw new Error("Workbook is not initialized");
+    }
+    return workbook?.save();
+};
+const univerAPI = FUniver.newAPI(univer);
+        setTimeout(() => {
+            univerAPI.executeCommand("sheet.operation.set-selections", {
+                unitId: "__INTERNAL_EDITOR__DOCS_NORMAL",
+                subUnitId: "",
+                segmentId: "",
+                style: {
+                    strokeWidth: 1.5,
+                    stroke: "rgba(0, 0, 0, 0)",
+                    strokeActive: "rgba(0, 0, 0, 1)",
+                    fill: "rgba(128, 188, 254, 0.6)",
+                },
+                isEditing: true,
+                ranges: [
+                    {
+                        startOffset: 0,
+                        endOffset: 0,
+                        collapsed: true,
+                        isActive: true,
+                    },
+                ],
+            });
+            univerAPI.executeCommand("sheet.operation.set-activate-cell-edit", {
+                sheetId: "sheet-01",
+                unitId: "workbook-01",
+                primary: {
+                    actualRow: 0,
+                    actualColumn: 0,
+                    isMerged: false,
+                    isMergedMainCell: false,
+                    startRow: 0,
+                    startColumn: 0,
+                    endRow: 0,
+                    endColumn: 0,
+                },
+            });
+            univerAPI.executeCommand("sheet.operation.set-activate-cell-edit", {
+                primary: {
+                    actualRow: 0,
+                    actualColumn: 0,
+                    isMerged: false,
+                    isMergedMainCell: false,
+                    startRow: 0,
+                    startColumn: 0,
+                    endRow: 0,
+                    endColumn: 0,
+                },
+                sheetId: "sheet-01",
+                unitId: "workbook-01",
+            });
+            univerAPI.executeCommand("sheet.operation.set-selections", {
+                unitId: "workbook-01",
+                subUnitId: "sheet-01",
+                type: 2,
+                selections: [
+                    {
+                        range: {
+                            startRow: 0,
+                            startColumn: 0,
+                            endRow: 0,
+                            endColumn: 0,
+                            rangeType: 0,
+                            unitId: "workbook-01",
+                            sheetId: "sheet-01",
+                        },
+                        primary: {
+                            actualRow: 0,
+                            actualColumn: 0,
+                            isMerged: false,
+                            isMergedMainCell: false,
+                            startRow: 0,
+                            startColumn: 0,
+                            endRow: 0,
+                            endColumn: 0,
+                        },
+                        style: {
+                            strokeWidth: 1,
+                            stroke: "#274fee",
+                            fill: "rgba(39,79,238,0.07)",
+                            widgets: {},
+                            widgetSize: 6,
+                            widgetStrokeWidth: 1,
+                            widgetStroke: "#ffffff",
+                            hasAutoFill: true,
+                            AutofillSize: 6,
+                            AutofillStrokeWidth: 1,
+                            AutofillStroke: "#ffffff",
+                            hasRowHeader: true,
+                            rowHeaderFill: "rgba(39,79,238,0.07)",
+                            rowHeaderStroke: "#274fee",
+                            rowHeaderStrokeWidth: 1,
+                            hasColumnHeader: true,
+                            columnHeaderFill: "rgba(39,79,238,0.07)",
+                            columnHeaderStroke: "#274fee",
+                            columnHeaderStrokeWidth: 1,
+                            expandCornerSize: 40,
+                        },
+                    },
+                ],
+            });
+        }, 100)
+        setTimeout(() => {
+            univerAPI.executeCommand("univer.command.copy", {
+                params: undefined,
+            });
+            univerAPI.executeCommand("sheet.operation.set-activate-cell-edit", {
+                primary: {
+                    actualRow: 0,
+                    actualColumn: 1,
+                    isMerged: false,
+                    isMergedMainCell: false,
+                    startRow: 0,
+                    startColumn: 1,
+                    endRow: 0,
+                    endColumn: 1,
+                },
+                sheetId: "sheet-01",
+                unitId: "workbook-01",
+            });
+            univerAPI.executeCommand("sheet.operation.set-selections", {
+                unitId: "workbook-01",
+                subUnitId: "sheet-01",
+                type: 2,
+                selections: [
+                    {
+                        range: {
+                            startRow: 0,
+                            startColumn: 1,
+                            endRow: 0,
+                            endColumn: 1,
+                            rangeType: 0,
+                            unitId: "workbook-01",
+                            sheetId: "sheet-01",
+                        },
+                        primary: {
+                            actualRow: 0,
+                            actualColumn: 1,
+                            isMerged: false,
+                            isMergedMainCell: false,
+                            startRow: 0,
+                            startColumn: 1,
+                            endRow: 0,
+                            endColumn: 1,
+                        },
+                        style: {
+                            strokeWidth: 1,
+                            stroke: "#274fee",
+                            fill: "rgba(39,79,238,0.07)",
+                            widgets: {},
+                            widgetSize: 6,
+                            widgetStrokeWidth: 1,
+                            widgetStroke: "#ffffff",
+                            hasAutoFill: true,
+                            AutofillSize: 6,
+                            AutofillStrokeWidth: 1,
+                            AutofillStroke: "#ffffff",
+                            hasRowHeader: true,
+                            rowHeaderFill: "rgba(39,79,238,0.07)",
+                            rowHeaderStroke: "#274fee",
+                            rowHeaderStrokeWidth: 1,
+                            hasColumnHeader: true,
+                            columnHeaderFill: "rgba(39,79,238,0.07)",
+                            columnHeaderStroke: "#274fee",
+                            columnHeaderStrokeWidth: 1,
+                            expandCornerSize: 40,
+                        },
+                    },
+                ],
+            });
+            univerAPI.executeCommand("sheet.command.paste-bu-short-key", {
+                "htmlContent": "<meta charset='utf-8'><html><head></head><body><google data-copy-id=\"uvGAq5\" -sheets-html-origin=\"\"><table xmlns=\"http://www.w3.org/1999/xhtml\" cellspacing=\"0\" cellpadding=\"0\" dir=\"ltr\" style=\"table-layout:fixed;font-size:10pt;font-family:Arial;width:0px;border-collapse:collapse;border:none\"><colgroup><col width=\"93\"></colgroup>\n<tbody><tr style=\"height: 27px;\"><td>Hello World</td></tr></tbody></table></google></body></html>",
+                "textContent": "Hello World"
+            })
+            console.log(getData(), "getData");  // The second cell is copied from the first cell and may lack the custom attribute
+        }, 5000);
